@@ -1,0 +1,391 @@
+<!DOCTYPE html> 
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo - Giacomo Raina</title>
+    
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+/* 1. CONFIGURAZIONE GENERALE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f8f9fc 0%, #e8ecf1 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    transition: background 0.4s ease, color 0.4s ease;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(52, 73, 94, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    animation: float 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* 2. STILE INTESTAZIONE */
+header {
+    text-align: center;
+    animation: slideDown 0.8s ease-out;
+    margin-bottom: 40px;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.glow-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.2) 0%, transparent 70%);
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 30px rgba(52, 152, 219, 0.3);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        box-shadow: 0 0 50px rgba(52, 152, 219, 0.5);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.profile-img {
+    position: relative;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 10px 40px rgba(52, 152, 219, 0.2);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+    object-fit: cover;
+}
+
+.profile-img:hover {
+    transform: scale(1.12);
+    box-shadow: 0 20px 50px rgba(52, 152, 219, 0.3);
+}
+
+h1 {
+    margin: 20px 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #34495e, transparent);
+    margin: 20px auto 0;
+    border-radius: 2px;
+    animation: expandWidth 0.8s ease-out 0.3s both;
+}
+
+@keyframes expandWidth {
+    from { width: 0; opacity: 0; }
+    to { width: 80px; opacity: 1; }
+}
+
+/* 3. PULSANTE TEMA */
+.theme-switch {
+    margin-bottom: 30px;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#theme-toggle {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.25);
+    letter-spacing: 0.5px;
+}
+
+#theme-toggle:hover {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.35);
+}
+
+#theme-toggle:active {
+    transform: translateY(-1px);
+}
+
+/* 4. IL CONTENITORE DEI BOTTONI */
+.container {
+    width: 100%;
+    max-width: 450px;
+    margin-top: 20px;
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+    color: #34495e;
+    text-decoration: none;
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 2px solid #ecf0f1;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn i {
+    font-size: 1.4rem;
+    color: #3498db;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    color: white;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.25);
+    transform: translateY(-5px);
+    border-color: #3498db;
+}
+
+.btn:hover i {
+    color: #ecf0f1;
+    transform: translateY(-3px) scale(1.15);
+}
+
+/* 5. FOOTER */
+footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.heart {
+    display: inline-block;
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+}
+
+/* 6. DARK MODE */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ecf0f1;
+}
+
+body.dark-mode h1 { color: #ecf0f1; }
+body.dark-mode .subtitle { color: #bdc3c7; }
+
+body.dark-mode .divider {
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+}
+
+body.dark-mode .btn {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-color: #34495e;
+}
+
+body.dark-mode .btn:hover {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+body.dark-mode footer { color: #bdc3c7; }
+</style>
+
+</head>
+
+<body>
+
+<!-- HTML IDENTICO -->
+
+<div class="theme-switch">
+<button id="theme-toggle">🌙 Modalità Notte</button>
+</div>
+
+<header>
+<div class="profile-container">
+<div class="glow-ring"></div>
+<img src="https://i.imgur.com/lNdwrJY.jpeg" alt="Immagine profilo" class="profile-img">
+</div>
+<h1>Giacomo Raina</h1>
+<p class="subtitle">Studente Liceo Scientifico</p>
+<div class="divider"></div>
+</header>
+
+<main class="container">
+<a href="https://torricellimi.edu.it/" target="_blank" rel="noopener" class="btn">
+<i class="fas fa-school"></i><span>Il mio Istituto</span></a>
+
+<a href="https://www.unimib.it/studiare/corsi-laurea-iscrizioni/area-economico-statistica-laurea-triennale" target="_blank" rel="noopener" class="btn">
+<i class="fas fa-graduation-cap"></i><span>Università</span></a>
+
+<a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener" class="btn">
+<i class="fab fa-linkedin"></i><span>Profilo Professionale</span></a>
+
+<a href="https://www.instagram.com/jackraina_/" target="_blank" rel="noopener" class="btn">
+<i class="fab fa-instagram"></i><span>Profilo Instagram</span></a>
+
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=giacomoraina@teamdigitale.torricellimi.edu.it" target="_blank" rel="noopener" class="btn">
+  <i class="fas fa-envelope"></i>
+  <span>Inviami una Email</span>
+</a>
+</main>
+
+<footer>
+<p>Realizzato con <span class="heart">❤️</span> per il corso di Informatica</p>
+</footer>
+
+<script>
+// JAVASCRIPT IDENTICO
+
+const pulsante = document.getElementById('theme-toggle');
+const corpo = document.body;
+
+if (localStorage.getItem('theme') === 'dark') {
+    corpo.classList.add('dark-mode');
+    pulsante.innerText = "☀️ Modalità Luce";
+}
+
+pulsante.addEventListener('click', () => {
+    corpo.classList.toggle('dark-mode');
+    
+    if (corpo.classList.contains('dark-mode')) {
+        pulsante.innerText = "☀️ Modalità Luce";
+        localStorage.setItem('theme', 'dark');
+    } else {
+        pulsante.innerText = "🌙 Modalità Notte";
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+window.addEventListener('load', () => {
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach((btn, index) => {
+        btn.style.animation = `fadeIn 0.6s ease-out ${0.5 + index * 0.1}s both`;
+    });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
